@@ -162,7 +162,7 @@ class ChatBotController extends Controller
 
                     Si el usuario pregunta por el total de varios productos, responde con una consulta Eloquent como esta:
 
-                    App\Models\Product::whereRaw('LOWER(name) IN (?)', [array_map('strtolower', ['Producto 1', 'Producto 2'])])->sum('price');
+                    App\Models\Product::whereIn('name', ['Producto 1', 'Producto 2'])->sum('price');
 
                     Sustituye los nombres por los que mencione el usuario. No agregues explicaciones ni texto adicional, solo la consulta.";
 
