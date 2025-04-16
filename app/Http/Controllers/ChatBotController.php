@@ -110,6 +110,7 @@ class ChatBotController extends Controller
                     Log::info('Mensaje del usuario:', ['phone' => $phoneUser, 'body' => $body]);
 
                     $responseAI = $this->consultAI($body);
+                    Log::info('Mensaje de Chatbot IA ATDEV:', ['ia' => 'atdev', 'body' => $responseAI]);
                     $this->sendMessage($responseAI, '52'.$phone1); // Pasar el número del usuario
                 } else {
                     Log::info('Mensaje ignorado:', ['phone' => $phoneUser, 'type' => $type]);
