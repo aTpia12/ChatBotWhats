@@ -147,10 +147,10 @@ class ChatBotController extends Controller
                     - Desarrollo de Aplicaciones.
 
                     Una vez mostrado esto, cuando el usuario pregunte por el precio o la descripción de un producto o servicio, responde solamente con una consulta Eloquent de Laravel que use el modelo `Product`. Si el usuario pregunta por el precio, responde así:
-                    App\Models\Product::where('name', 'like', '%Nombre del Producto%')->select('price')->first();
+                    App\Models\Product::whereRaw('name ILIKE ?', ['%Nombre del Producto%'])->select('price')->first();
 
                     Si el usuario pregunta por la descripción, responde así:
-                    App\Models\Product::where('name', 'like', '%Nombre del Producto%')->select('description')->first();
+                    App\Models\Product::whereRaw('name ILIKE ?', ['%Nombre del Producto%'])->select('description')->first();
 
                     No expliques nada, no agregues texto adicional, solo responde con la consulta directa.
 
@@ -162,7 +162,7 @@ class ChatBotController extends Controller
 
                     Si el usuario pregunta por el total de varios productos, responde con una consulta Eloquent como esta:
 
-                    App\Models\Product::whereIn('name', ['Producto 1', 'Producto 2'])->sum('price');
+                    App\Models\Product::whereRaw('LOWER(name) IN (?)', [array_map('strtolower', ['Producto 1', 'Producto 2'])])->sum('price');
 
                     Sustituye los nombres por los que mencione el usuario. No agregues explicaciones ni texto adicional, solo la consulta.";
 
